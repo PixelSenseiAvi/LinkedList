@@ -28,8 +28,11 @@ public:
 
     void pop(size_t idx); //idx should start from 0
     void push(T _data);
+    
+
     LinkedList<T> sort();
     std::string listToString();
+    LinkedList<T> add(LinkedList<T>& l1, LinkedList<T>& l2); //sequentially add two linked lists
 
 };
 

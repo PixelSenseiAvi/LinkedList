@@ -100,6 +100,80 @@ std::string LinkedList<T>::listToString()
 }
 
 template <typename T>
+LinkedList<T> LinkedList<T>::add(LinkedList<T>& l1, LinkedList<T>& l2)
+{
+        LinkedList<T> _newNode;
+        Node<T>* n1 = l1.head;
+        Node<T>* n2 = l2.head;
+
+        while(n1->next!=nullptr && n2->next != nullptr)
+        {
+            if(n1->data < n2->data)
+            {
+                _newNode.push(n1->data);
+                n1 = n1->next;
+            }else
+            {
+                _newNode.push(n2->data);
+                n2 = n2->next;
+            }
+        }
+
+        if(n1->next == nullptr && n2->next == nullptr)
+        {
+            if(n1->data < n2->data)
+            {
+                 _newNode.push(n1->data);
+                 _newNode.push(n2->data);
+            }
+            else
+            {
+                 _newNode.push(n2->data);
+                 _newNode.push(n1->data);
+            }
+        }   else if(n1->next == nullptr)
+        {
+            if(n1->data < n2->data)
+                _newNode.push(n1->data);
+            else
+            {
+                _newNode.push(n2->data);
+                n2 = n2->next;
+                _newNode.push(n1->data);
+            }
+
+            //Iterate over remaining other list
+            while(n2->next!=nullptr)
+            {
+                _newNode.push(n2->data);
+                n2 = n2->next;
+            }
+            _newNode.push(n2->data);
+        }
+        else
+        {   //n2->next == nullptr
+            if(n2->data < n1->data)
+                _newNode.push(n2->data);
+            else
+            {
+                _newNode.push(n1->data);
+                n1 = n1->next;
+                _newNode.push(n2->data);
+            }
+
+            //Iterate over other remaining list
+            while(n1->next!=nullptr)
+            {
+                _newNode.push(n1->data);
+                n1 = n1->next;
+            }
+            _newNode.push(n1->data);
+        }
+
+        return _newNode;
+}
+
+template <typename T>
 LinkedList<T>::~LinkedList()
 {
     this->head = nullptr;
